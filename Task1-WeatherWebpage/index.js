@@ -51,8 +51,8 @@ search.addEventListener('click', () => {
                     image.src = 'images/cloud.png';
                     break;
 
-                case 'Haze':
-                    image.src = 'images/mist.png';
+                case 'Mist':
+                    image.src = 'https://tse1.mm.bing.net/th?id=OIP.SN7NJb8cR52xVHNTwYFI5wHaFj&pid=Api&P=0&h=180';
                     break;
 
                 default:
