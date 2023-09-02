@@ -1,31 +1,57 @@
-const days = document.querySelector("#days")
-const hours = document.querySelector("#hours")
-const minutes = document.querySelector("#minutes")
-const seconds = document.querySelector("#seconds")
+const btnStart=document.querySelector('.start');
+const btnStop=document.querySelector('.stop');
+const btnReset=document.querySelector('.reset');
+
+let hrs=min=sec=ms=0,startTimer;
+
+btnStart.addEventListener('click',()=>{
+
+  btnStart.classList.add('start-active');
+  btnStop.classList.remove('stop-active');
+
+  startTimer=setInterval(()=>{
+    ms++;//ms=ms+1;
+    if(ms==100){
+      sec++;
+      ms=0;
+    }
+    if(sec==60){
+      min++;
+      sec=0;
+    }
+    if(min==60){
+      hrs++;
+      min=0;
+    }
+    updateDisplay();
+  },10);
+});
+
+btnStop.addEventListener('click',()=>{
+  clearInterval(startTimer);
+  btnStart.classList.remove('start-active');
+  btnStop.classList.add('stop-active');
+
+});
+
+btnReset.addEventListener('click',()=>{
+  hrs=min=sec=ms=0;
+  clearInterval(startTimer);
+  updateDisplay();
+  btnStart.classList.remove('start-active');
+  btnStop.classList.remove('stop-active');
+});
 
 
-
-
-function UpdateTime(){
-const currentyear = new Date().getFullYear();
-const newyear = new Date(`January  1 ${currentyear+1}  00:00:00`);
-const currentdate = new Date();
-const diff = newyear- currentdate;
-const d = Math.floor(diff/1000/60/60/24);
-const h = Math.floor((diff/1000/60/60)%24);
-const m = Math.floor((diff/1000/60)%60);
-const s = Math.floor((diff/1000)%60);
-// console.log(d+" "+ h+" "+m+" "+s);
-days.innerHTML = d<10?"0"+d:d;
-hours.innerHTML = h<10?"0"+h:h;
-minutes.innerHTML = m<10?"0"+m:m;
-seconds.innerHTML = s<10?"0"+s:s;
+function updateDisplay(){
+  //Formated Display
+  phrs=hrs<10?'0'+hrs:hrs;
+  pmin=min<10?'0'+min:min;
+  psec=sec<10?'0'+sec:sec;
+  pms=ms<10?'0'+ms:ms;
+  //Output
+  document.querySelector('.hrs').innerText=phrs;
+  document.querySelector('.min').innerText=pmin;
+  document.querySelector('.sec').innerText=psec;
+  document.querySelector('.ms').innerText=pms;
 }
-
-setInterval(UpdateTime,1000);
-
-
-
-
-
-
